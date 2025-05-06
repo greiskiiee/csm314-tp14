@@ -1,4 +1,6 @@
 import React from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const SignUp = () => {
   return (
@@ -12,16 +14,16 @@ export const SignUp = () => {
       </div>
 
       <div className="w-full flex flex-col gap-3">
-        <div className="w-full flex flex-col gap-1 items-start">
-          <label className="text-[#fff]">Username</label>
-          <input
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label className="text-[#fff]">Username</Label>
+          <Input
             type="text"
             className="w-[60%] py-1 px-4 rounded-md bg-white "
             placeholder="Enter your username"
           />
         </div>
 
-        <div className="w-full flex flex-col gap-1 items-start">
+        <div className="grid w-full max-w-sm items-center gap-1.5">
           <label className="text-[#fff]">Phone number</label>
           <input
             type="tel"
@@ -29,7 +31,7 @@ export const SignUp = () => {
             placeholder="Enter your phone number"
           />
         </div>
-        <div className="w-full flex flex-col gap-1 items-start">
+        <div className="grid w-full max-w-sm items-center gap-1.5">
           <label className="text-[#fff]">Email</label>
           <input
             type="email"
@@ -38,7 +40,7 @@ export const SignUp = () => {
           />
         </div>
 
-        <div className="w-full flex flex-col gap-1 items-start">
+        <div className="grid w-full max-w-sm items-center gap-1.5">
           <label className="text-[#fff]">Password</label>
           <input
             type="password"
@@ -51,7 +53,7 @@ export const SignUp = () => {
           </div>
         </div>
 
-        <div className="w-full flex flex-col gap-1 items-start">
+        <div className="grid w-full max-w-sm items-center gap-1.5">
           <label className="text-[#fff]">Confirm Password</label>
           <input
             type="password"
