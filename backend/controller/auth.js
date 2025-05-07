@@ -30,7 +30,6 @@ export const login = async (req, res) => {
     }
 
     const token = jwt.sign({ ...user }, SECRET_KEY, { expiresIn: 60 * 1000 });
-    // console.log(token);
 
     return res
       .status(200)

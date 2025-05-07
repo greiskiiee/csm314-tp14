@@ -35,6 +35,24 @@ import EditProfile from "@/components/EditProfile";
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
 
+export const getUserIdFromToken = () => {
+  let token = "";
+  if (typeof window !== "undefined") {
+    token = window.localStorage.getItem("token"); // Retrieve the token from localStorage
+    if (!token) return null; // If no token is found, return null
+    console.log(token, "token");
+  }
+
+  try {
+    const decoded = jwtDecode(token); // Decode the JWT token
+    console.log(decoded, "decoded"); // Log the decoded token
+    return decoded._doc._id; // Return the user ID (adjust according to your JWT structure)
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return null; // Return null in case of any decoding error
+  }
+};
+
 export default function Home() {
   const router = useRouter();
 
@@ -42,25 +60,6 @@ export default function Home() {
 
   const onEdit = () => {
     setEdit(!edit);
-  };
-
-  // Get user ID from JWT stored in localStorage
-  const getUserIdFromToken = () => {
-    let token = "";
-    if (typeof window !== "undefined") {
-      token = window.localStorage.getItem("token"); // Retrieve the token from localStorage
-      if (!token) return null; // If no token is found, return null
-      console.log(token, "token");
-    }
-
-    try {
-      const decoded = jwtDecode(token); // Decode the JWT token
-      console.log(decoded, "decoded"); // Log the decoded token
-      return decoded._doc._id; // Return the user ID (adjust according to your JWT structure)
-    } catch (error) {
-      console.error("Invalid token:", error);
-      return null; // Return null in case of any decoding error
-    }
   };
 
   const userId = getUserIdFromToken();

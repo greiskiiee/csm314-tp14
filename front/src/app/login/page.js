@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { getUserIdFromToken } from "../home/page";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -56,6 +57,24 @@ export default function Login() {
         setPassError("Invalid password or email.");
       }
       console.error("Login failed:", error);
+    }
+  };
+
+  const sendMail = async (req, res) => {
+    const userMail = emailRef.current.value;
+    try {
+      //   const user = await axios.get(
+      //     `${process.env.NEXT_PUBLIC_BACKEND_URI}/user/${userId}`
+      //   );
+      //   const userMail = user.data.user.email;
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/mail`, {
+        email: userMail,
+        subject: "Hello, here is your password",
+        text: "Your otp is 12345678. Please update your password.",
+      });
+      alert("Your password is sent to your email");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -118,6 +137,13 @@ export default function Login() {
                   {passError}
                 </p>
               </div>
+
+              <p
+                className="montserrat text-[14px] underline text-[#2a2c41]"
+                onClick={sendMail}
+              >
+                Forgot password ?
+              </p>
             </div>
 
             <div className="flex flex-col justify-center gap-2 ">
