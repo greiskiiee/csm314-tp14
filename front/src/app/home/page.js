@@ -33,6 +33,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import EditProfile from "@/components/EditProfile";
 import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export default function Home() {
   const router = useRouter();
@@ -43,9 +44,33 @@ export default function Home() {
     setEdit(!edit);
   };
 
+  // Get user ID from JWT stored in localStorage
+  const getUserIdFromToken = () => {
+    let token = "";
+    if (typeof window !== "undefined") {
+      token = window.localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) return null; // If no token is found, return null
+      console.log(token, "token");
+    }
+
+    try {
+      const decoded = jwtDecode(token); // Decode the JWT token
+      console.log(decoded, "decoded"); // Log the decoded token
+      return decoded._doc._id; // Return the user ID (adjust according to your JWT structure)
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return null; // Return null in case of any decoding error
+    }
+  };
+
+  const userId = getUserIdFromToken();
+
   return (
-    <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#2a2c41]">
-      <div className="w-[90%] flex justify-between mb-3">
+    <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#2a2c41] ">
+      <div className="w-[90%] flex justify-between mb-3 items-center">
+        <div className="w-fit h-full text-[#ff724c] montserrat font-[500] text-[26px] flex justify-center items-center py-2 box-border rounded-md">
+          EatWell+
+        </div>
         <NavigationMenu>
           <NavigationMenuList className="gap-2">
             <NavigationMenuItem>
@@ -79,22 +104,31 @@ export default function Home() {
                       <div className="flex justify-start items-center gap-3">
                         {" "}
                         <UserRoundPen />
-                        <button onClick={onEdit}>Edit Profile</button>{" "}
+                        <Button
+                          className="bg-[#fcc050]/50 text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors"
+                          onClick={onEdit}
+                        >
+                          Edit Profile
+                        </Button>{" "}
                       </div>
 
-                      {edit ? <EditProfile /> : null}
+                      {edit && <EditProfile _id={userId} />}
                     </div>
                     <div className="flex justify-start items-center gap-3">
                       <History />
-                      <button>History</button>
+                      <Button className="bg-[#fcc050]/50 text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors ">
+                        History
+                      </Button>
                     </div>
                     <div className="flex justify-start items-center gap-3">
                       <ReceiptText />
-                      <button>Terms and conditions</button>
+                      <Button className="bg-[#fcc050]/50 text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors">
+                        Terms and conditions
+                      </Button>
                     </div>
                   </div>
                 </div>
-                <Button className="w-fit h-fit py-2 px-4 bg-[#ff724c] rounded-md">
+                <Button className="w-fit h-fit py-2 px-4 bg-[#ff724c]/60 text-[#2a2c41] rounded-md hover:bg-[#ff724c] hover:text-[#2a2c41] transition-colors">
                   <Dialog>
                     <DialogTrigger>Log out</DialogTrigger>
                     <DialogContent className="w-[300px]">
