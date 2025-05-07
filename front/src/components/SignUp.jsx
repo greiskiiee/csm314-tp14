@@ -2,8 +2,9 @@
 import React, { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff } from "lucide-react"; // optional: install lucide-react
+import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,6 +26,8 @@ export const SignUp = () => {
   const [confirmPassError, setConfirmPassError] = useState("");
 
   const [userAdded, setMessage] = useState(false);
+
+  const router = useRouter();
 
   const handlePass = () => {
     if (passwordRef.current.value.length < 8) {
@@ -55,6 +58,8 @@ export const SignUp = () => {
         data
       );
       setMessage("success");
+
+      setTimeout(() => router.push("/login"), 1500);
     } catch (error) {
       if (
         error.response &&
@@ -73,7 +78,12 @@ export const SignUp = () => {
       <div className="flex justify-start items-center gap-1">
         <p className="text-[#2a2c41] montserrat text-[22px]">
           Already have an account?{" "}
-          <span className="text-[#fcc050] montserrat underline">Log in</span>
+          <span
+            className="text-[#fcc050] montserrat underline"
+            onClick={() => router.push("/login")}
+          >
+            Log in
+          </span>
         </p>
       </div>
 
