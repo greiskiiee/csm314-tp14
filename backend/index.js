@@ -3,6 +3,7 @@ import cors from "cors";
 import { userRouter } from "./routes/user.js";
 import { config } from "dotenv";
 import { connectMongoDB } from "./connectDB.js";
+import { authRouter } from "./routes/auth.js";
 
 config();
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(json());
 
 app.use("/user", userRouter);
+app.use("/login", authRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
