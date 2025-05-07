@@ -16,6 +16,7 @@ export default function Login() {
     password: "",
     phoneNumber: "",
   });
+
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
@@ -38,7 +39,7 @@ export default function Login() {
       );
 
       const token = response.data.token;
-      const expiryTime = 60 * 1000 * 60;
+      const expiryTime = 60 * 1000;
 
       if (typeof window !== "undefined") {
         localStorage.setItem("token", token);
