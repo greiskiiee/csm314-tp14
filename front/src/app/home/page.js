@@ -34,18 +34,17 @@ import { jwtDecode } from "jwt-decode";
 export const getUserIdFromToken = () => {
   let token = "";
   if (typeof window !== "undefined") {
-    token = window.localStorage.getItem("token"); // Retrieve the token from localStorage
-    if (!token) return null; // If no token is found, return null
+    token = window.localStorage.getItem("token");
+    if (!token) return null;
     console.log(token, "token");
   }
 
   try {
-    const decoded = jwtDecode(token); // Decode the JWT token
-    console.log(decoded, "decoded"); // Log the decoded token
-    return decoded._doc._id; // Return the user ID (adjust according to your JWT structure)
+    const decoded = jwtDecode(token);
+    return decoded._doc._id;
   } catch (error) {
     console.error("Invalid token:", error);
-    return null; // Return null in case of any decoding error
+    return null;
   }
 };
 
@@ -59,6 +58,14 @@ export default function Home() {
   };
 
   const userId = getUserIdFromToken();
+
+  const handleLogout = () => {
+    router.push("/");
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("token");
+      console.log("token deleted");
+    }
+  };
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#2a2c41] ">
@@ -106,31 +113,31 @@ export default function Home() {
                       <div className="flex justify-start items-center gap-3">
                         {" "}
                         <UserRoundPen />
-                        <Button
-                          className="bg-[#fcc050]/50 text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors"
+                        <div
+                          className="py-2 px-4 montserrat rounded-md text-[14px] font-[500] text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors"
                           onClick={onEdit}
                         >
                           Edit Profile
-                        </Button>{" "}
+                        </div>{" "}
                       </div>
 
                       {edit && <EditProfile _id={userId} />}
                     </div>
                     <div className="flex justify-start items-center gap-3">
                       <History />
-                      <Button className="bg-[#fcc050]/50 text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors ">
+                      <div className="py-2 px-4 montserrat rounded-md text-[14px] font-[500] text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors ">
                         History
-                      </Button>
+                      </div>
                     </div>
                     <div className="flex justify-start items-center gap-3">
                       <ReceiptText />
-                      <Button className="bg-[#fcc050]/50 text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors">
+                      <div className="py-2 px-4 montserrat rounded-md text-[14px] font-[500] text-[#2a2c41] hover:bg-[#fcc050] hover:text-[#2a2c41] transition-colors">
                         Terms and conditions
-                      </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <Button className="w-fit h-fit py-2 px-4 bg-[#ff724c]/60 text-[#2a2c41] rounded-md hover:bg-[#ff724c] hover:text-[#2a2c41] transition-colors">
+                <div className="w-fit h-fit py-2 px-4 bg-[#ff724c]/60 text-[#2a2c41] rounded-md hover:bg-[#ff724c] hover:text-[#2a2c41] transition-colors">
                   <Dialog>
                     <DialogTrigger>Log out</DialogTrigger>
                     <DialogContent className="w-[300px]">
@@ -154,7 +161,7 @@ export default function Home() {
                               type="button"
                               variant="secondary"
                               className="bg-[#b4b4b4]"
-                              onClick={() => router.push("/")}
+                              onClick={handleLogout}
                             >
                               Log out
                             </Button>
@@ -163,7 +170,7 @@ export default function Home() {
                       </DialogFooter>
                     </DialogContent>
                   </Dialog>
-                </Button>
+                </div>
               </SheetHeader>
             </SheetContent>
           </Sheet>
@@ -178,10 +185,10 @@ export default function Home() {
         </div>
         <div className="w-full h-1/2 lg:w-1/2 lg:h-full flex flex-col justify-between gap-2 py-8 px-6 bg-[#f4f3f8] rounded-b-xl lg:rounded-b-none lg:rounded-r-xl">
           <div className="w-full h-1/2 flex justify-center items-center bg-[#7c7c7b]/50 rounded-md">
-            CONTENT
+            Create a recipe from my ingredients
           </div>
           <div className="w-full h-1/2 flex justify-center items-center bg-[#fcc050]/50 rounded-md">
-            CONTENT
+            Analysis product with barcode
           </div>
         </div>
       </div>
