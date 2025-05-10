@@ -39,7 +39,7 @@ export default function Login() {
       );
 
       const token = response.data.token;
-      const expiryTime = 60 * 1000;
+      const expiryTime = 60 * 1000 * 60;
 
       if (typeof window !== "undefined") {
         localStorage.setItem("token", token);
@@ -63,6 +63,8 @@ export default function Login() {
 
   const sendMail = async (req, res) => {
     const userMail = emailRef.current.value;
+    const otp = Math.floor(Math.random() * 100000) + 10000;
+    console.log(otp);
     try {
       //   const user = await axios.get(
       //     `${process.env.NEXT_PUBLIC_BACKEND_URI}/user/${userId}`
@@ -71,9 +73,9 @@ export default function Login() {
       await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/mail`, {
         email: userMail,
         subject: "Hello, here is your password",
-        text: "Your otp is 12345678. Please update your password.",
+        text: `Your otp is ${otp}. Please update your password.`,
       });
-      alert("Your password is sent to your email");
+      alert("Your otp is sent to your email.");
     } catch (error) {
       console.log(error);
     }

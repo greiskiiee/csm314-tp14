@@ -6,6 +6,8 @@ import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(null);
@@ -22,6 +24,7 @@ export const SignUp = () => {
   const confirmPasswordRef = useRef("");
   const phoneNumberRef = useRef("");
 
+  const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [confirmPassError, setConfirmPassError] = useState("");
 
@@ -34,6 +37,14 @@ export const SignUp = () => {
       setPassError("Password must be at least 8 characters");
     } else {
       setPassError("");
+    }
+  };
+
+  const handleEmail = () => {
+    if (emailRegex.test(emailRef.current.value)) {
+      setEmailError("");
+    } else {
+      setEmailError("Invalid email address!");
     }
   };
 
@@ -118,7 +129,9 @@ export const SignUp = () => {
             className="w-[60%] py-1 px-4 rounded-md bg-white"
             placeholder="Enter your email"
             ref={emailRef}
+            onChange={handleEmail}
           />
+          <p className="montserrat text-[12px] text-[#f00]">{emailError}</p>
         </div>
 
         {/* Password */}
