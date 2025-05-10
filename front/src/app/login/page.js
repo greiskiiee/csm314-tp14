@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { getUserIdFromToken } from "../home/page";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -83,19 +82,19 @@ export default function Login() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[#2a2c41]">
-      <div className="w-[90%] h-[90%] flex justify-center items-center rounded-xl ">
-        <div className="w-1/2 h-full bg-[#f4f3f8] rounded-l-xl flex flex-col justify-center items-center py-20 gap-6">
-          <p className="text-[#2a2c41] montserrat text-[52px] font-[500] ">
+      <div className="w-[90%] h-[90%] flex flex-col justify-center items-center rounded-xl lg:flex-row">
+        <div className="w-full lg:w-1/2 h-[100px] lg:h-full bg-[#f4f3f8] rounded-t-xl lg:rounded-l-xl lg:rounded-t-none flex flex-col justify-center items-center py-20 gap-6">
+          <p className="text-[#2a2c41] montserrat  text-[26px] lg:text-[52px] font-[500] ">
             Welcome Back
           </p>
-          <p className="text-[#fcc050] montserrat text-[92px] font-[600] text-shadow-lg/30 ">
+          <p className="text-[#fcc050] montserrat text-[28px] lg:text-[92px] font-[600] text-shadow-lg/30 ">
             EatWell+
           </p>
         </div>
-        <div className="w-1/2 h-full py-8 px-6 bg-[#f4f3f8] rounded-r-xl">
+        <div className="w-full lg:w-1/2 h-fit lg:h-full py-8 px-6 bg-[#f4f3f8] rounded-b-xl lg:rounded-r-xl lg:rounded-b-none">
           <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
             <div className="flex justify-start items-center gap-1">
-              <p className="text-[#2a2c41] montserrat text-[22px]">
+              <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
                 Don't have an account?{" "}
                 <span
                   className="text-[#fcc050] montserrat underline"
@@ -112,7 +111,7 @@ export default function Login() {
                 <Label className="text-[#2a2c41]">Email</Label>
                 <Input
                   type="email"
-                  className="w-[60%] py-1 px-4 rounded-md bg-white"
+                  className="lg:w-[60%] py-1 px-4 rounded-md bg-white"
                   placeholder="Enter your email"
                   ref={emailRef}
                 />
@@ -121,11 +120,11 @@ export default function Login() {
               {/* Password */}
               <div className="grid w-full max-w-sm items-center gap-1.5 relative">
                 <Label className="text-[#2a2c41]">Password</Label>
-                <div className="relative w-[60%]">
+                <div className="relative lg:w-[60%]">
                   <Input
                     type={showPassword ? "text" : "password"}
                     className="w-full py-1 px-4 pr-10 rounded-md bg-white"
-                    placeholder="Create a password"
+                    placeholder="Enter your password"
                     ref={passwordRef}
                   />
                   <button
@@ -149,7 +148,7 @@ export default function Login() {
               </p>
             </div>
 
-            <div className="flex flex-col justify-center gap-2 ">
+            <div className="flex flex-col justify-center gap-2 w-full items-center lg:items-start">
               <button
                 className="w-fit rounded-md px-3 box-border text-[#f4f4f8] montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
                 onClick={handleLogIn}

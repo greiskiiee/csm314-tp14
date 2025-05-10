@@ -87,7 +87,7 @@ export const SignUp = () => {
   return (
     <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
       <div className="flex justify-start items-center gap-1">
-        <p className="text-[#2a2c41] montserrat text-[22px]">
+        <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
           Already have an account?{" "}
           <span
             className="text-[#fcc050] montserrat underline"
@@ -104,7 +104,7 @@ export const SignUp = () => {
           <Label className="text-[#2a2c41]">Username</Label>
           <Input
             type="text"
-            className="w-[60%] py-1 px-4 rounded-md bg-white"
+            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
             placeholder="Enter your username"
             ref={usernameRef}
           />
@@ -115,7 +115,7 @@ export const SignUp = () => {
           <Label className="text-[#2a2c41]">Phone number</Label>
           <Input
             type="tel"
-            className="w-[60%] py-1 px-4 rounded-md bg-white"
+            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
             placeholder="Enter your phone number"
             ref={phoneNumberRef}
           />
@@ -126,7 +126,7 @@ export const SignUp = () => {
           <Label className="text-[#2a2c41]">Email</Label>
           <Input
             type="email"
-            className="w-[60%] py-1 px-4 rounded-md bg-white"
+            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
             placeholder="Enter your email"
             ref={emailRef}
             onChange={handleEmail}
@@ -137,7 +137,7 @@ export const SignUp = () => {
         {/* Password */}
         <div className="grid w-full max-w-sm items-center gap-1.5 relative">
           <Label className="text-[#2a2c41]">Password</Label>
-          <div className="relative w-[60%]">
+          <div className="relative lg:w-[80%]">
             <Input
               type={showPassword ? "text" : "password"}
               className="w-full py-1 px-4 pr-10 rounded-md bg-white"
@@ -159,7 +159,7 @@ export const SignUp = () => {
         {/* Confirm Password */}
         <div className="grid w-full max-w-sm items-center gap-1.5 relative">
           <Label className="text-[#2a2c41]">Confirm Password</Label>
-          <div className="relative w-[60%]">
+          <div className="relative lg:w-[80%]">
             <Input
               type={showConfirmPassword ? "text" : "password"}
               className="w-full py-1 px-4 pr-10 rounded-md bg-white"
@@ -181,7 +181,7 @@ export const SignUp = () => {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center gap-2 ">
+      <div className="w-full flex flex-col justify-center gap-2 items-center lg:items-start ">
         <button
           className="w-fit rounded-md px-3 box-border text-[#f4f4f8] montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
           onClick={handleSubmit}
